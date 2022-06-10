@@ -86,8 +86,8 @@ LPSTR GetCommandLineAHook()
 						"The \"-northstar\" command line option is NOT supposed to go into ns_startup_args.txt file!\n\nThis option is "
 						"supposed to go into Origin/Steam game launch options, and then you are supposed to launch the original "
 						"Titanfall2.exe "
-						"rather than NorthstarLauncher.exe to make use of it.",
-						"Northstar Warning",
+						"rather than SpectreLauncher.exe to make use of it.",
+						"Spectre Warning",
 						MB_ICONWARNING);
 
 				args.append(argBuffer.str());

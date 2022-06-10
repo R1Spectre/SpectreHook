@@ -129,7 +129,7 @@ Mod::Mod(fs::path modDir, char* jsonBuf)
 			if (scriptObj.HasMember("ServerCallback") && scriptObj["ServerCallback"].IsObject())
 			{
 				ModScriptCallback callback;
-				callback.Context = ScriptContext::SERVER;
+				callback.Context = SCRIPT_CONTEXT_SERVER;
 
 				if (scriptObj["ServerCallback"].HasMember("Before") && scriptObj["ServerCallback"]["Before"].IsString())
 					callback.BeforeCallback = scriptObj["ServerCallback"]["Before"].GetString();
@@ -143,7 +143,7 @@ Mod::Mod(fs::path modDir, char* jsonBuf)
 			if (scriptObj.HasMember("ClientCallback") && scriptObj["ClientCallback"].IsObject())
 			{
 				ModScriptCallback callback;
-				callback.Context = ScriptContext::CLIENT;
+				callback.Context = SCRIPT_CONTEXT_CLIENT;
 
 				if (scriptObj["ClientCallback"].HasMember("Before") && scriptObj["ClientCallback"]["Before"].IsString())
 					callback.BeforeCallback = scriptObj["ClientCallback"]["Before"].GetString();
@@ -157,7 +157,7 @@ Mod::Mod(fs::path modDir, char* jsonBuf)
 			if (scriptObj.HasMember("UICallback") && scriptObj["UICallback"].IsObject())
 			{
 				ModScriptCallback callback;
-				callback.Context = ScriptContext::UI;
+				callback.Context = SCRIPT_CONTEXT_UI;
 
 				if (scriptObj["UICallback"].HasMember("Before") && scriptObj["UICallback"]["Before"].IsString())
 					callback.BeforeCallback = scriptObj["UICallback"]["Before"].GetString();

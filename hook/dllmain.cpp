@@ -70,11 +70,11 @@ bool InitialiseSpectre()
 
     // client-exclusive patches
     {
-        AddDllLoadCallbackForClient("launcher.dll", InitialiseClientSquirrel);
+        AddDllLoadCallbackForClient("client.dll", InitialiseSquirrel);
         AddDllLoadCallbackForClient("client.dll", InitialiseSourceConsole);
     }
 
-    AddDllLoadCallback("server.dll", InitialiseServerSquirrel);
+    //AddDllLoadCallback("server.dll", InitialiseServerSquirrel);
 
     AddDllLoadCallback("client.dll", InitialiseVersion);
 

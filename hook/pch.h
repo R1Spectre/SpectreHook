@@ -3,6 +3,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #define _CRT_SECURE_NO_WARNINGS
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING
 #define RAPIDJSON_NOMEMBERITERATORCLASS // need this for rapidjson
 #define NOMINMAX // this too
 #define _WINSOCK_DEPRECATED_NO_WARNINGS // temp because i'm very lazy and want to use inet_addr, remove later
@@ -29,7 +30,6 @@ typedef unsigned int _DWORD;
 #include "include/MinHook.h"
 #include "libcurl/include/curl/curl.h"
 #include "hookutils.h"
-#include "context.h"
 
 template <typename ReturnType, typename... Args> ReturnType CallVFunc(int index, void* thisPtr, Args... args)
 {

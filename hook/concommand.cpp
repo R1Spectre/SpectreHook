@@ -88,7 +88,7 @@ bool ConCommandBase::IsRegistered(void) const
 //-----------------------------------------------------------------------------
 bool ConCommandBase::IsFlagSet(int nFlags) const
 {
-	return false; // !TODO: Returning false on every query? (original implementation in Northstar before ConCommandBase refactor)
+	return false; // !TODO: Returning false on every query? (original implementation in Spectre before ConCommandBase refactor)
 }
 
 //-----------------------------------------------------------------------------

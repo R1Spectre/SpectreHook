@@ -4,6 +4,8 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <minidumpapiset.h>
+#include "configurables.h"
 
 #include <iostream>
 #include <fstream>
@@ -266,7 +268,211 @@ void Error_SpewCallStackHook(const wchar_t* fmt_w, ...) {
     va_end(args);
 }
 
+long __stdcall ExceptionFilter(EXCEPTION_POINTERS* exceptionInfo)
+{
+	static bool logged = false;
+	if (logged)
+		return EXCEPTION_CONTINUE_SEARCH;
+
+	if (!IsDebuggerPresent())
+	{
+		const DWORD exceptionCode = exceptionInfo->ExceptionRecord->ExceptionCode;
+		if (exceptionCode != EXCEPTION_ACCESS_VIOLATION && exceptionCode != EXCEPTION_ARRAY_BOUNDS_EXCEEDED &&
+			exceptionCode != EXCEPTION_DATATYPE_MISALIGNMENT && exceptionCode != EXCEPTION_FLT_DENORMAL_OPERAND &&
+			exceptionCode != EXCEPTION_FLT_DIVIDE_BY_ZERO && exceptionCode != EXCEPTION_FLT_INEXACT_RESULT &&
+			exceptionCode != EXCEPTION_FLT_INVALID_OPERATION && exceptionCode != EXCEPTION_FLT_OVERFLOW &&
+			exceptionCode != EXCEPTION_FLT_STACK_CHECK && exceptionCode != EXCEPTION_FLT_UNDERFLOW &&
+			exceptionCode != EXCEPTION_ILLEGAL_INSTRUCTION && exceptionCode != EXCEPTION_IN_PAGE_ERROR &&
+			exceptionCode != EXCEPTION_INT_DIVIDE_BY_ZERO && exceptionCode != EXCEPTION_INT_OVERFLOW &&
+			exceptionCode != EXCEPTION_INVALID_DISPOSITION && exceptionCode != EXCEPTION_NONCONTINUABLE_EXCEPTION &&
+			exceptionCode != EXCEPTION_PRIV_INSTRUCTION && exceptionCode != EXCEPTION_STACK_OVERFLOW)
+			return EXCEPTION_CONTINUE_SEARCH;
+
+		std::stringstream exceptionCause;
+		exceptionCause << "Cause: ";
+		switch (exceptionCode)
+		{
+		case EXCEPTION_ACCESS_VIOLATION:
+		case EXCEPTION_IN_PAGE_ERROR:
+		{
+			exceptionCause << "Access Violation" << std::endl;
+
+			auto exceptionInfo0 = exceptionInfo->ExceptionRecord->ExceptionInformation[0];
+			auto exceptionInfo1 = exceptionInfo->ExceptionRecord->ExceptionInformation[1];
+
+			if (!exceptionInfo0)
+				exceptionCause << "Attempted to read from: 0x" << (void*)exceptionInfo1;
+			else if (exceptionInfo0 == 1)
+				exceptionCause << "Attempted to write to: 0x" << (void*)exceptionInfo1;
+			else if (exceptionInfo0 == 8)
+				exceptionCause << "Data Execution Prevention (DEP) at: 0x" << (void*)std::hex << exceptionInfo1;
+			else
+				exceptionCause << "Unknown access violation at: 0x" << (void*)exceptionInfo1;
+
+			break;
+		}
+		case EXCEPTION_ARRAY_BOUNDS_EXCEEDED:
+			exceptionCause << "Array bounds exceeded";
+			break;
+		case EXCEPTION_DATATYPE_MISALIGNMENT:
+			exceptionCause << "Datatype misalignment";
+			break;
+		case EXCEPTION_FLT_DENORMAL_OPERAND:
+			exceptionCause << "Denormal operand";
+			break;
+		case EXCEPTION_FLT_DIVIDE_BY_ZERO:
+			exceptionCause << "Divide by zero (float)";
+			break;
+		case EXCEPTION_INT_DIVIDE_BY_ZERO:
+			exceptionCause << "Divide by zero (int)";
+			break;
+		case EXCEPTION_FLT_INEXACT_RESULT:
+			exceptionCause << "Inexact result";
+			break;
+		case EXCEPTION_FLT_INVALID_OPERATION:
+			exceptionCause << "Invalid operation";
+			break;
+		case EXCEPTION_FLT_OVERFLOW:
+		case EXCEPTION_INT_OVERFLOW:
+			exceptionCause << "Numeric overflow";
+			break;
+		case EXCEPTION_FLT_UNDERFLOW:
+			exceptionCause << "Numeric underflow";
+			break;
+		case EXCEPTION_FLT_STACK_CHECK:
+			exceptionCause << "Stack check";
+			break;
+		case EXCEPTION_ILLEGAL_INSTRUCTION:
+			exceptionCause << "Illegal instruction";
+			break;
+		case EXCEPTION_INVALID_DISPOSITION:
+			exceptionCause << "Invalid disposition";
+			break;
+		case EXCEPTION_NONCONTINUABLE_EXCEPTION:
+			exceptionCause << "Noncontinuable exception";
+			break;
+		case EXCEPTION_PRIV_INSTRUCTION:
+			exceptionCause << "Priviledged instruction";
+			break;
+		case EXCEPTION_STACK_OVERFLOW:
+			exceptionCause << "Stack overflow";
+			break;
+		default:
+			exceptionCause << "Unknown";
+			break;
+		}
+
+		void* exceptionAddress = exceptionInfo->ExceptionRecord->ExceptionAddress;
+
+		HMODULE crashedModuleHandle;
+		GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, static_cast<LPCSTR>(exceptionAddress), &crashedModuleHandle);
+
+		MODULEINFO crashedModuleInfo;
+		GetModuleInformation(GetCurrentProcess(), crashedModuleHandle, &crashedModuleInfo, sizeof(crashedModuleInfo));
+
+		char crashedModuleFullName[MAX_PATH];
+		GetModuleFileNameExA(GetCurrentProcess(), crashedModuleHandle, crashedModuleFullName, MAX_PATH);
+		char* crashedModuleName = strrchr(crashedModuleFullName, '\\') + 1;
+
+		DWORD64 crashedModuleOffset = ((DWORD64)exceptionAddress) - ((DWORD64)crashedModuleInfo.lpBaseOfDll);
+		CONTEXT* exceptionContext = exceptionInfo->ContextRecord;
+
+		Log::Error("Spectre has crashed! a minidump has been written and exception info is available below:");
+		Log::Error(exceptionCause.str().c_str());
+		Log::Error("At: %s + 0x%08x", crashedModuleName, (void*)crashedModuleOffset);
+
+		PVOID framesToCapture[62];
+		int frames = RtlCaptureStackBackTrace(0, 62, framesToCapture, NULL);
+		for (int i = 0; i < frames; i++)
+		{
+			HMODULE backtraceModuleHandle;
+			GetModuleHandleExA(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS, static_cast<LPCSTR>(framesToCapture[i]), &backtraceModuleHandle);
+
+			char backtraceModuleFullName[MAX_PATH];
+			GetModuleFileNameExA(GetCurrentProcess(), backtraceModuleHandle, backtraceModuleFullName, MAX_PATH);
+			char* backtraceModuleName = strrchr(backtraceModuleFullName, '\\') + 1;
+
+			void* actualAddress = (void*)framesToCapture[i];
+			void* relativeAddress = (void*)(uintptr_t(actualAddress) - uintptr_t(backtraceModuleHandle));
+
+			Log::Error("    %s + 0x%08x (0x%08x)", backtraceModuleName, relativeAddress, actualAddress);
+		}
+
+		Log::Error("RAX: 0x%08x", exceptionContext->Rax);
+		Log::Error("RBX: 0x%08x", exceptionContext->Rbx);
+		Log::Error("RCX: 0x%08x", exceptionContext->Rcx);
+		Log::Error("RDX: 0x%08x", exceptionContext->Rdx);
+		Log::Error("RSI: 0x%08x", exceptionContext->Rsi);
+		Log::Error("RDI: 0x%08x", exceptionContext->Rdi);
+		Log::Error("RBP: 0x%08x", exceptionContext->Rbp);
+		Log::Error("RSP: 0x%08x", exceptionContext->Rsp);
+		Log::Error("R8: 0x%08x", exceptionContext->R8);
+		Log::Error("R9: 0x%08x", exceptionContext->R9);
+		Log::Error("R10: 0x%08x", exceptionContext->R10);
+		Log::Error("R11: 0x%08x", exceptionContext->R11);
+		Log::Error("R12: 0x%08x", exceptionContext->R12);
+		Log::Error("R13: 0x%08x", exceptionContext->R13);
+		Log::Error("R14: 0x%08x", exceptionContext->R14);
+		Log::Error("R15: 0x%08x", exceptionContext->R15);
+
+		time_t time = std::time(nullptr);
+		tm currentTime = *std::localtime(&time);
+		std::stringstream stream;
+		stream << std::put_time(&currentTime, (GetSpectrePrefix() + "/logs/r1sdump%Y-%m-%d %H-%M-%S.dmp").c_str());
+
+		auto hMinidumpFile = CreateFileA(stream.str().c_str(), GENERIC_WRITE, FILE_SHARE_READ, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+		if (hMinidumpFile)
+		{
+			MINIDUMP_EXCEPTION_INFORMATION dumpExceptionInfo;
+			dumpExceptionInfo.ThreadId = GetCurrentThreadId();
+			dumpExceptionInfo.ExceptionPointers = exceptionInfo;
+			dumpExceptionInfo.ClientPointers = false;
+
+			MiniDumpWriteDump(
+				GetCurrentProcess(),
+				GetCurrentProcessId(),
+				hMinidumpFile,
+				MINIDUMP_TYPE(MiniDumpWithIndirectlyReferencedMemory | MiniDumpScanMemory),
+				&dumpExceptionInfo,
+				nullptr,
+				nullptr);
+			CloseHandle(hMinidumpFile);
+		}
+		else
+			Log::Error("Failed to write minidump file %s!", stream.str().c_str());
+
+		//if (!IsDedicated())
+			MessageBoxA(
+				0, "Spectre has crashed! Crash info can be found in R1Spectre/logs", "Spectre has crashed!", MB_ICONERROR | MB_OK);
+	}
+
+	logged = true;
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+
+HANDLE hExceptionFilter;
+
+BOOL WINAPI ConsoleHandlerRoutine(DWORD eventCode)
+{
+	switch (eventCode)
+	{
+	case CTRL_CLOSE_EVENT:
+		// User closed console, shut everything down
+	Log::Info("Exiting due to console close...");
+		RemoveVectoredExceptionHandler(hExceptionFilter);
+		exit(EXIT_SUCCESS);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+
 void InitialiseLogging() {
+	hExceptionFilter = AddVectoredExceptionHandler(TRUE, ExceptionFilter);
+	AllocConsole();
+	SetConsoleCtrlHandler(ConsoleHandlerRoutine, true);
+
     fs::create_directory("R1Spectre");
     fs::create_directory("R1Spectre/logs");
 
