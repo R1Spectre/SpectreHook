@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Shared">
+      <UniqueIdentifier>{477e7a9e-ead5-47f4-ae9c-04f8eea41d33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shared">
+      <UniqueIdentifier>{dcbec88f-55fc-4b84-8851-e19a0e186fdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Hooks">
+      <UniqueIdentifier>{4594caf9-9137-4782-8866-a35bf9d891e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shared\Hooks">
+      <UniqueIdentifier>{17ab0a6d-ca04-4601-b9a3-779a296b5298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dedicated">
+      <UniqueIdentifier>{76908fa2-bd30-4e58-b8b2-588db294a787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dedicated">
+      <UniqueIdentifier>{c29e1f51-660e-40db-b360-0ca4394b52b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Game Functions">
+      <UniqueIdentifier>{de502628-bb3f-458f-9def-01f772e25dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shared\Game Functions">
+      <UniqueIdentifier>{388bba15-f185-40d7-b9b2-c576713c8c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\ConVar">
+      <UniqueIdentifier>{45687d77-6c32-4764-82bb-7a925e0a042b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shared\ConVar">
+      <UniqueIdentifier>{222b99ad-6714-42bd-b029-f4abedfef2b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include">
+      <UniqueIdentifier>{420bbdb5-9977-4088-a65d-2475dce5897b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\rapidjson">
+      <UniqueIdentifier>{cdf7e254-f7dc-4a96-8eab-35b6b1c5712f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\rapidjson\error">
+      <UniqueIdentifier>{1a85d35a-beff-4b75-820c-7b40059a4d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\rapidjson\internal">
+      <UniqueIdentifier>{5f4b1180-f9fd-46a8-95bc-564aa74e6f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\rapidjson\msinttypes">
+      <UniqueIdentifier>{69ac0fb6-89a3-4b6f-96b3-4340df2cbbe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Mods">
+      <UniqueIdentifier>{eda4e521-d8dd-4486-ba66-517495af2676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shared\Mods">
+      <UniqueIdentifier>{7458ee14-a2a2-4322-970f-5644bd828e3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shared\Mods\Compiled">
+      <UniqueIdentifier>{9c86dcce-337d-46d8-9f3b-a6a4e6706c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shared\Mods\Compiled">
+      <UniqueIdentifier>{7de389fb-e5c4-41f4-b77b-6f57e9fd628f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Client">
+      <UniqueIdentifier>{d2f2f3c0-47d1-4db4-92e6-c9ea16d01fb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Client">
+      <UniqueIdentifier>{2e63b863-0c21-4918-a362-99d6fac5061e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\include\libcurl">
+      <UniqueIdentifier>{0d2de65c-a675-4e24-9c43-8b83fa1e7394}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="logging.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="hookutils.h">
+      <Filter>Header Files\Shared\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hooks.h">
+      <Filter>Header Files\Shared\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="nsmem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="context.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="sourceinterface.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="dedicated.h">
+      <Filter>Header Files\Dedicated</Filter>
+    </ClInclude>
+    <ClInclude Include="gameutils.h">
+      <Filter>Header Files\Shared\Game Functions</Filter>
+    </ClInclude>
+    <ClInclude Include="concommand.h">
+      <Filter>Header Files\Shared\ConVar</Filter>
+    </ClInclude>
+    <ClInclude Include="cvar.h">
+      <Filter>Header Files\Shared\ConVar</Filter>
+    </ClInclude>
+    <ClInclude Include="convar.h">
+      <Filter>Header Files\Shared\ConVar</Filter>
+    </ClInclude>
+    <ClInclude Include="color.h">
+      <Filter>Header Files\Shared\ConVar</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="memalloc.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\document.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\encodedstream.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\encodings.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\filereadstream.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\filewritestream.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\fwd.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\istreamwrapper.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\memorybuffer.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\memorystream.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\ostreamwrapper.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\pointer.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\prettywriter.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\rapidjson.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\reader.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\schema.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\stream.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\stringbuffer.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\writer.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\allocators.h">
+      <Filter>Header Files\include\rapidjson</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\msinttypes\inttypes.h">
+      <Filter>Header Files\include\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\msinttypes\stdint.h">
+      <Filter>Header Files\include\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\biginteger.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\diyfp.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\dtoa.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\ieee754.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\itoa.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\meta.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\pow10.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\regex.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\stack.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\strfunc.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\strtod.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\internal\swap.h">
+      <Filter>Header Files\include\rapidjson\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\error\en.h">
+      <Filter>Header Files\include\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rapidjson\error\error.h">
+      <Filter>Header Files\include\rapidjson\error</Filter>
+    </ClInclude>
+    <ClInclude Include="modmanager.h">
+      <Filter>Header Files\Shared\Mods</Filter>
+    </ClInclude>
+    <ClInclude Include="configurables.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="squirrel.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="sigscanning.h">
+      <Filter>Header Files\Shared\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="scriptsrson.h">
+      <Filter>Header Files\Shared\Mods\Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="keyvalues.h">
+      <Filter>Header Files\Shared\Mods\Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="pdef.h">
+      <Filter>Header Files\Shared\Mods\Compiled</Filter>
+    </ClInclude>
+    <ClInclude Include="misccommands.h">
+      <Filter>Header Files\Shared\ConVar</Filter>
+    </ClInclude>
+    <ClInclude Include="sourceconsole.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="masterserver.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\curl.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\curlver.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\easy.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\mprintf.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\multi.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\options.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\stdcheaders.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\system.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\typecheck-gcc.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+    <ClInclude Include="include\libcurl\include\curl\urlapi.h">
+      <Filter>Header Files\include\libcurl</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logging.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="hookutils.cpp">
+      <Filter>Source Files\Shared\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="hooks.cpp">
+      <Filter>Source Files\Shared\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="sourceinterface.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="context.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="dedicated.cpp">
+      <Filter>Source Files\Dedicated</Filter>
+    </ClCompile>
+    <ClCompile Include="gameutils.cpp">
+      <Filter>Source Files\Shared\Game Functions</Filter>
+    </ClCompile>
+    <ClCompile Include="convar.cpp">
+      <Filter>Source Files\Shared\ConVar</Filter>
+    </ClCompile>
+    <ClCompile Include="cvar.cpp">
+      <Filter>Source Files\Shared\ConVar</Filter>
+    </ClCompile>
+    <ClCompile Include="concommand.cpp">
+      <Filter>Source Files\Shared\ConVar</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="memalloc.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="modmanager.cpp">
+      <Filter>Source Files\Shared\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="configurables.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="scriptsrson.cpp">
+      <Filter>Source Files\Shared\Mods\Compiled</Filter>
+    </ClCompile>
+    <ClCompile Include="squirrel.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="sigscanning.cpp">
+      <Filter>Source Files\Shared\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="keyvalues.cpp">
+      <Filter>Source Files\Shared\Mods\Compiled</Filter>
+    </ClCompile>
+    <ClCompile Include="pdef.cpp">
+      <Filter>Source Files\Shared\Mods\Compiled</Filter>
+    </ClCompile>
+    <ClCompile Include="miscconcommands.cpp">
+      <Filter>Source Files\Shared\ConVar</Filter>
+    </ClCompile>
+    <ClCompile Include="sourceconsole.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="masterserver.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="version.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="version.h">
+      <Filter>Header Files\Shared</Filter>
+    </None>
+  </ItemGroup>
+</Project>
