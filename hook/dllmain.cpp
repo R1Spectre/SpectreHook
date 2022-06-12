@@ -13,6 +13,7 @@
 #include "sourceconsole.h"
 #include "masterserver.h"
 #include "version.h"
+#include "miscenginefixes.h"
 
 bool initialised = false;
 
@@ -67,6 +68,7 @@ bool InitialiseSpectre()
 
     AddDllLoadCallback("engine.dll", InitialiseConVars);
     AddDllLoadCallback("engine.dll", InitialiseConCommands);
+    AddDllLoadCallback("engine.dll", InitialiseMiscEngineFixes);
 
     // client-exclusive patches
     {

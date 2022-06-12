@@ -220,6 +220,7 @@
     <ClInclude Include="masterserver.h" />
     <ClInclude Include="memalloc.h" />
     <ClInclude Include="misccommands.h" />
+    <ClInclude Include="miscenginefixes.h" />
     <ClInclude Include="modmanager.h" />
     <ClInclude Include="nsmem.h" />
     <ClInclude Include="pch.h" />
@@ -246,6 +247,7 @@
     <ClCompile Include="masterserver.cpp" />
     <ClCompile Include="memalloc.cpp" />
     <ClCompile Include="miscconcommands.cpp" />
+    <ClCompile Include="miscenginefixes.cpp" />
     <ClCompile Include="modmanager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

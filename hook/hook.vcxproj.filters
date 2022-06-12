@@ -291,6 +291,9 @@
     <ClInclude Include="include\libcurl\include\curl\urlapi.h">
       <Filter>Header Files\include\libcurl</Filter>
     </ClInclude>
+    <ClInclude Include="miscenginefixes.h">
+      <Filter>Header Files\Shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -363,6 +366,9 @@
       <Filter>Source Files\Shared</Filter>
     </ClCompile>
     <ClCompile Include="version.cpp">
+      <Filter>Source Files\Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="miscenginefixes.cpp">
       <Filter>Source Files\Shared</Filter>
     </ClCompile>
   </ItemGroup>

@@ -6,6 +6,7 @@
 #include <sstream>
 #include <minidumpapiset.h>
 #include "configurables.h"
+#include "sourceconsole.h"
 
 #include <iostream>
 #include <fstream>
@@ -64,11 +65,11 @@ void Log::Info(const char* fmt, ...) {
     va_start(Args, fmt);
     PrintFormattedLog("Info", fmt, Args);
 
-    if (ConMsgOriginal != nullptr) {
-        char buf[1024];
-        vsprintf(buf, fmt, Args);
-        ConMsgOriginal("[Info] %s\n", buf);
-    }
+    char buf[1024];
+    vsprintf(buf, fmt, Args);
+	char buf2[1024];
+	sprintf(buf2, "[Info] %s\n", buf);
+	SC_ColorPrint(SourceColor(255, 255, 255, 255), buf2);
     va_end(Args);
 }
 void Log::Warn(const char* fmt, ...) {
@@ -76,11 +77,11 @@ void Log::Warn(const char* fmt, ...) {
     va_start(Args, fmt);
     PrintFormattedLog("Warn", fmt, Args);
 
-    if (ConMsgOriginal != nullptr) {
-        char buf[1024];
-        vsprintf(buf, fmt, Args);
-        ConMsgOriginal("[Warn] %s\n", buf);
-    }
+	char buf[1024];
+	vsprintf(buf, fmt, Args);
+	char buf2[1024];
+	sprintf(buf2, "[Warn] %s\n", buf);
+	SC_ColorPrint(SourceColor(255, 255, 0, 255), buf2);
     va_end(Args);
 }
 void Log::Critical(const char* fmt, ...) {
@@ -88,11 +89,11 @@ void Log::Critical(const char* fmt, ...) {
     va_start(Args, fmt);
     PrintFormattedLog("Critical", fmt, Args);
 
-    if (ConMsgOriginal != nullptr) {
-        char buf[1024];
-        vsprintf(buf, fmt, Args);
-        ConMsgOriginal("[Critical] %s\n", buf);
-    }
+	char buf[1024];
+	vsprintf(buf, fmt, Args);
+	char buf2[1024];
+	sprintf(buf2, "[Critical] %s\n", buf);
+	SC_ColorPrint(SourceColor(255, 0, 0, 255), buf2);
     va_end(Args);
 }
 void Log::Error(const char* fmt, ...) {
@@ -100,11 +101,11 @@ void Log::Error(const char* fmt, ...) {
     va_start(Args, fmt);
     PrintFormattedLog("Error", fmt, Args);
 
-    if (ConMsgOriginal != nullptr) {
-        char buf[1024];
-        vsprintf(buf, fmt, Args);
-        ConMsgOriginal("[Error] %s\n", buf);
-    }
+	char buf[1024];
+	vsprintf(buf, fmt, Args);
+	char buf2[1024];
+	sprintf(buf2, "[Error] %s\n", buf);
+	SC_ColorPrint(SourceColor(255, 0, 0, 255), buf2);
     va_end(Args);
 }
 
@@ -458,7 +459,7 @@ BOOL WINAPI ConsoleHandlerRoutine(DWORD eventCode)
 	{
 	case CTRL_CLOSE_EVENT:
 		// User closed console, shut everything down
-	Log::Info("Exiting due to console close...");
+		Log::Info("Exiting due to console close...");
 		RemoveVectoredExceptionHandler(hExceptionFilter);
 		exit(EXIT_SUCCESS);
 		return FALSE;
@@ -467,10 +468,19 @@ BOOL WINAPI ConsoleHandlerRoutine(DWORD eventCode)
 	return TRUE;
 }
 
+void AllowExitToCrash()
+{
+	Log::Info("Exiting...");
+	RemoveVectoredExceptionHandler(hExceptionFilter);
+}
+
 
 void InitialiseLogging() {
 	hExceptionFilter = AddVectoredExceptionHandler(TRUE, ExceptionFilter);
 	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+
 	SetConsoleCtrlHandler(ConsoleHandlerRoutine, true);
 
     fs::create_directory("R1Spectre");
@@ -479,6 +489,8 @@ void InitialiseLogging() {
     std::ofstream logStream;
     logStream.open("R1Spectre/logs/latest.log", std::ofstream::out | std::ofstream::trunc);
     logStream.close();
+
+	SetConsoleTitleA("R1Spectre");
 }
 
 void InitialiseLogHooks(HMODULE baseAddress) {

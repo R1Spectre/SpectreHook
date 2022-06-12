@@ -10,3 +10,5 @@ public:
 	static void Critical(const char* fmt, ...);
 	static void Error(const char* fmt, ...);
 };
+
+void AllowExitToCrash();

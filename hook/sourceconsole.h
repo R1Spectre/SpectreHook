@@ -34,6 +34,10 @@ struct SourceColor
 	}
 };
 
+void SC_ColorPrint(const SourceColor& clr, const char* pMessage);
+void SC_Print(const char* pMessage);
+void SC_DPrint(const char* pMessage);
+
 class IConsoleDisplayFunc
 {
 public:

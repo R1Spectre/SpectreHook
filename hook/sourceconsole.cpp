@@ -42,6 +42,36 @@ void InitialiseConsoleOnInterfaceCreation()
 		reinterpret_cast<LPVOID*>(&onCommandSubmittedOriginal));
 }
 
+void SC_ColorPrint(const SourceColor& clr, const char* pMessage)
+{
+	if (!g_SourceGameConsole || !(*g_SourceGameConsole)->m_bInitialized)
+	{
+		return;
+	}
+
+	(*g_SourceGameConsole)->m_pConsole->m_pConsolePanel->ColorPrint(clr, pMessage);
+}
+
+void SC_Print(const char* pMessage)
+{
+	if (!g_SourceGameConsole || !(*g_SourceGameConsole)->m_bInitialized)
+	{
+		return;
+	}
+
+	(*g_SourceGameConsole)->m_pConsole->m_pConsolePanel->Print(pMessage);
+}
+
+void SC_DPrint(const char* pMessage)
+{
+	if (!g_SourceGameConsole || !(*g_SourceGameConsole)->m_bInitialized)
+	{
+		return;
+	}
+
+	(*g_SourceGameConsole)->m_pConsole->m_pConsolePanel->DPrint(pMessage);
+}
+
 void InitialiseSourceConsole(HMODULE baseAddress)
 {
 	g_SourceGameConsole = new SourceInterface<CGameConsole>("client.dll", "GameConsole004");
