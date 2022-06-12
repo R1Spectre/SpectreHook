@@ -70,25 +70,14 @@ LPSTR GetCommandLineAHook()
 		if (!ignoreStartupArgs)
 		{
 
-			cmdlineArgFile = std::ifstream(!isDedi ? "r1s_startup_args.txt" : "r1s_startup_args_dedi.txt");
+			//cmdlineArgFile = std::ifstream(!isDedi ? "r1s_startup_args.txt" : "r1s_startup_args_dedi.txt");
+			cmdlineArgFile = std::ifstream("r1s_startup_args.txt");
 
 			if (cmdlineArgFile)
 			{
 				std::stringstream argBuffer;
 				argBuffer << cmdlineArgFile.rdbuf();
 				cmdlineArgFile.close();
-
-				// if some other command line option includes "-northstar" in the future then you have to refactor this check to check with
-				// both either space after or ending with
-				if (!isDedi && argBuffer.str().find("-northstar") != std::string::npos)
-					MessageBoxA(
-						NULL,
-						"The \"-northstar\" command line option is NOT supposed to go into ns_startup_args.txt file!\n\nThis option is "
-						"supposed to go into Origin/Steam game launch options, and then you are supposed to launch the original "
-						"Titanfall2.exe "
-						"rather than SpectreLauncher.exe to make use of it.",
-						"Spectre Warning",
-						MB_ICONWARNING);
 
 				args.append(argBuffer.str());
 			}
