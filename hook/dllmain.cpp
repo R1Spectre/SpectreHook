@@ -74,11 +74,11 @@ bool InitialiseSpectre()
     {
         AddDllLoadCallbackForClient("client.dll", InitialiseSquirrel);
         AddDllLoadCallbackForClient("client.dll", InitialiseSourceConsole);
+        AddDllLoadCallbackForClient("client.dll", InitialiseVersion);
     }
 
     //AddDllLoadCallback("server.dll", InitialiseServerSquirrel);
 
-    AddDllLoadCallback("client.dll", InitialiseVersion);
 
     AddDllLoadCallback("filesystem_stdio.dll", InitialiseFilesystem);
     AddDllLoadCallback("engine.dll", InitialiseKeyValues);

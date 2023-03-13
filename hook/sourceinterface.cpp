@@ -72,7 +72,7 @@ void HookEngineCreateInterface(HMODULE baseAddress)
 
 void InitialiseInterfaceCreationHooks()
 {
-	AddDllLoadCallback("client.dll", HookClientCreateInterface);
+	AddDllLoadCallbackForClient("client.dll", HookClientCreateInterface);
 
 	// not used atm
 	// AddDllLoadCallback("server.dll", HookServerCreateInterface);
